@@ -10,24 +10,15 @@ import {
   IonNote,
 } from "@ionic/react";
 
-import { useLocation } from "react-router-dom";
 import {
-  archiveOutline,
-  archiveSharp,
-  bookmarkOutline,
-  heartOutline,
-  heartSharp,
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
+  peopleOutline,
+  peopleSharp,
   personOutline,
   personSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
+  statsChartOutline,
+  statsChartSharp,
 } from "ionicons/icons";
+import { useLocation } from "react-router-dom";
 import "./Menu.css";
 
 interface AppPage {
@@ -47,18 +38,16 @@ const appPages: AppPage[] = [
   {
     title: "Teams",
     url: "/teams",
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp,
+    iosIcon: peopleOutline,
+    mdIcon: peopleSharp,
   },
   {
     title: "Stats",
     url: "/stats",
-    iosIcon: heartOutline,
-    mdIcon: heartSharp,
+    iosIcon: statsChartOutline,
+    mdIcon: statsChartSharp,
   },
 ];
-
-// const labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
 
 const Menu: React.FC = () => {
   const location = useLocation();

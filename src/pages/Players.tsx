@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import {
   IonButtons,
   IonCard,
@@ -11,12 +12,31 @@ import {
   IonRow,
   IonSearchbar,
   IonTitle,
-  IonToggle,
   IonToolbar,
 } from "@ionic/react";
+import { useState } from "react";
 import { PlayersContent } from "../components";
+import { GET_PLAYER_INDEX } from "../queries";
 
 const Players: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { loading, error, data } = useQuery(GET_PLAYER_INDEX);
+
+  const handleSearch = (event: CustomEvent) => {
+    const searchTerm = event.detail.value;
+    // const filteredPlayers = data.playerIndex.filter((player: any) => {
+    //   const playerName =
+    //     `${player.firstName} ${player.lastName}`.toLocaleLowerCase();
+
+    //   return playerName.includes(searchTerm);
+    // });
+    // console.log("poopee", filteredPlayers);
+
+    setSearchTerm(event.detail.value);
+  };
+
+  console.log("searchterm", searchTerm);
+
   return (
     <IonPage>
       <IonHeader>
@@ -33,24 +53,19 @@ const Players: React.FC = () => {
             <IonCol>
               <IonCard>
                 <IonCardHeader>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <IonSearchbar
-                      animated={true}
-                      placeholder="Search"
-                    ></IonSearchbar>
-                    <IonToggle labelPlacement="stacked">
-                      Include Historic
-                    </IonToggle>
-                  </div>
+                  <IonSearchbar
+                    animated={true}
+                    placeholder="Search"
+                    onIonInput={(e) => handleSearch(e)}
+                    value={searchTerm}
+                  ></IonSearchbar>
                 </IonCardHeader>
-                <PlayersContent />
+                <PlayersContent
+                  loading={loading}
+                  error={error}
+                  data={data}
+                  searchTerm={searchTerm}
+                />
               </IonCard>
             </IonCol>
           </IonRow>
