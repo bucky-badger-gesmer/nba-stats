@@ -4,6 +4,7 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonImg,
@@ -72,6 +73,8 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
           })}
       </IonList>
       <IonModal
+        initialBreakpoint={0.85}
+        breakpoints={[0, 0.85]}
         isOpen={isOpen}
         onDidDismiss={() => {
           setSelectedPlayer(null);
@@ -91,7 +94,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding">
+        <IonContent className="ion-padding" fullscreen>
           {selectedPlayer !== null && (
             <IonItem>
               <IonAvatar aria-hidden="true" slot="start">
@@ -103,6 +106,9 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
               {selectedPlayer.firstName} {selectedPlayer.lastName}
             </IonItem>
           )}
+          <IonFooter>
+            <IonButton expand="full">Player Details</IonButton>
+          </IonFooter>
         </IonContent>
       </IonModal>
     </>
