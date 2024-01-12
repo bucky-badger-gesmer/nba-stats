@@ -7,7 +7,6 @@ import {
   IonFooter,
   IonHeader,
   IonIcon,
-  IonImg,
   IonItem,
   IonList,
   IonModal,
@@ -16,6 +15,7 @@ import {
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import { useState } from "react";
+import IonImgFallback from "./IonImgFallback";
 import LoadingSpinner from "./LoadingSpinner";
 import VirtualScrollChild from "./VirtualScrollChild";
 
@@ -61,10 +61,10 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                   onClick={() => handlePlayerClick(player)}
                 >
                   <IonAvatar aria-hidden="true" slot="start">
-                    <IonImg
+                    <IonImgFallback
                       src={`https://cdn.nba.com/headshots/nba/latest/260x190/${player.id}.png`}
                       alt={`${player.firstName} ${player.lastName} Avatar`}
-                    ></IonImg>
+                    ></IonImgFallback>
                   </IonAvatar>
                   {player.firstName} {player.lastName}
                 </IonItem>
@@ -98,10 +98,10 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
           {selectedPlayer !== null && (
             <IonItem>
               <IonAvatar aria-hidden="true" slot="start">
-                <IonImg
+                <IonImgFallback
                   src={`https://cdn.nba.com/headshots/nba/latest/260x190/${selectedPlayer.id}.png`}
                   alt={`${selectedPlayer.firstName} ${selectedPlayer.lastName} Avatar`}
-                ></IonImg>
+                ></IonImgFallback>
               </IonAvatar>
               {selectedPlayer.firstName} {selectedPlayer.lastName}
             </IonItem>
