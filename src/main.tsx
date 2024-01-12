@@ -1,11 +1,17 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-const container = document.getElementById('root');
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: "https://nbaql-production.up.railway.app/", // Replace with your GraphQL endpoint
+  cache: new InMemoryCache(),
+});
+
+const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>
+  </ApolloProvider>
 );
