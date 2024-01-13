@@ -31,6 +31,7 @@ interface PlayersContentProps {
   error?: ApolloError;
   data?: any;
   searchTerm: string;
+  includeInactive: boolean;
 }
 
 const PlayersContent: React.FC<PlayersContentProps> = ({
@@ -38,6 +39,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
   error,
   data,
   searchTerm,
+  includeInactive,
 }: PlayersContentProps) => {
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +57,13 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
     <>
       <IonList>
         {data.playerIndex
+          .filter((player: any) => {
+            if (includeInactive) {
+              return player;
+            } else {
+              return player.active === true;
+            }
+          })
           .filter((player: any) => {
             const playerName =
               `${player.firstName} ${player.lastName}`.toLowerCase();

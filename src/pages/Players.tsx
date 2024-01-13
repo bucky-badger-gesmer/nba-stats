@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import {
   IonButtons,
   IonCard,
+  IonCardContent,
   IonCardHeader,
   IonCol,
   IonContent,
@@ -12,6 +13,7 @@ import {
   IonRow,
   IonSearchbar,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
@@ -20,10 +22,15 @@ import { GET_PLAYER_INDEX } from "../queries";
 
 const Players: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [includeInactive, setIncludeInactive] = useState(true);
   const { loading, error, data } = useQuery(GET_PLAYER_INDEX);
 
   const handleSearch = (event: CustomEvent) => {
     setSearchTerm(event.detail.value);
+  };
+
+  const handleToggleInactive = () => {
+    setIncludeInactive(!includeInactive);
   };
 
   return (
@@ -42,9 +49,9 @@ const Players: React.FC = () => {
             <IonCol sizeLg="6">
               <IonCard>
                 <IonCardHeader>
-                  <IonGrid>
+                  <IonGrid style={{ width: "100%" }}>
                     <IonRow>
-                      <IonCol className="ion-align-self-center">
+                      <IonCol>
                         <IonSearchbar
                           animated={true}
                           placeholder="Search"
@@ -52,20 +59,27 @@ const Players: React.FC = () => {
                           value={searchTerm}
                         ></IonSearchbar>
                       </IonCol>
-                      {/* <IonCol size="auto" className="ion-align-self-center">
-                        <IonToggle labelPlacement="stacked">
-                          Include Inactive
+                      <IonCol size="3">
+                        <IonToggle
+                          labelPlacement="stacked"
+                          checked={includeInactive}
+                          onIonChange={handleToggleInactive}
+                        >
+                          Inactive
                         </IonToggle>
-                      </IonCol> */}
+                      </IonCol>
                     </IonRow>
                   </IonGrid>
                 </IonCardHeader>
-                <PlayersContent
-                  loading={loading}
-                  error={error}
-                  data={data}
-                  searchTerm={searchTerm}
-                />
+                <IonCardContent>
+                  <PlayersContent
+                    loading={loading}
+                    error={error}
+                    data={data}
+                    searchTerm={searchTerm}
+                    includeInactive={includeInactive}
+                  />
+                </IonCardContent>
               </IonCard>
             </IonCol>
           </IonRow>
