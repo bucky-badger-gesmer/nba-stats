@@ -3,14 +3,19 @@ import {
   IonAvatar,
   IonButton,
   IonButtons,
+  IonCard,
+  IonCol,
   IonContent,
   IonFooter,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
   IonModal,
+  IonRow,
+  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -68,14 +73,12 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                       alt={`${player.firstName} ${player.lastName} Avatar`}
                     ></IonImgFallback>
                   </IonAvatar>
+                  <Tag color={player.active ? "green" : "volcano"}>
+                    {player.active ? "Active" : "Inactive"}
+                  </Tag>
                   <IonLabel>
                     {player.firstName} {player.lastName}
                   </IonLabel>
-                  <IonButtons>
-                    <Tag color={player.active ? "green" : "volcano"}>
-                      {player.active ? "Active" : "Inactive"}
-                    </Tag>
-                  </IonButtons>
                 </IonItem>
               </VirtualScrollChild>
             );
@@ -105,18 +108,35 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
         </IonHeader>
         <IonContent className="ion-padding" fullscreen>
           {selectedPlayer !== null && (
-            <IonItem>
-              <IonAvatar aria-hidden="true" slot="start">
-                <IonImgFallback
-                  src={`https://cdn.nba.com/headshots/nba/latest/260x190/${selectedPlayer.id}.png`}
-                  alt={`${selectedPlayer.firstName} ${selectedPlayer.lastName} Avatar`}
-                ></IonImgFallback>
-              </IonAvatar>
-              {selectedPlayer.firstName} {selectedPlayer.lastName}
-            </IonItem>
+            <IonGrid>
+              <IonRow className="ion-justify-content-center">
+                <IonCol>
+                  <IonCard>
+                    <IonImgFallback
+                      src={`https://cdn.nba.com/headshots/nba/latest/260x190/${selectedPlayer.id}.png`}
+                      alt={`${selectedPlayer.firstName} ${selectedPlayer.lastName} Avatar`}
+                    ></IonImgFallback>
+                    <IonList>
+                      <IonItem>
+                        <IonText slot="start">Name</IonText>
+                        <IonText slot="end">
+                          {selectedPlayer.firstName} {selectedPlayer.lastName}
+                        </IonText>
+                      </IonItem>
+                      <IonItem>
+                        <IonText slot="start">Position</IonText>
+                        <IonText slot="end">{selectedPlayer.position}</IonText>
+                      </IonItem>
+                    </IonList>
+                  </IonCard>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           )}
           <IonFooter>
-            <IonButton expand="full">Player Details</IonButton>
+            <IonButton expand="full" shape="round">
+              Player Details
+            </IonButton>
           </IonFooter>
         </IonContent>
       </IonModal>

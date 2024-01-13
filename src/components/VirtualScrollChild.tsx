@@ -9,7 +9,7 @@ interface Props {
 const VirtualScrollChild: React.FC<Props> = (props) => {
   const [ref, inView] = useInView();
   const style = {
-    height: `${props.height ? props.height : 40}px`,
+    height: `${props.height ? props.height : 64}px`,
     overflow: "hidden",
   };
   return (
