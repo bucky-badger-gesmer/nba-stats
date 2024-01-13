@@ -38,8 +38,8 @@ const Players: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonGrid>
-          <IonRow>
-            <IonCol>
+          <IonRow className="ion-justify-content-center">
+            <IonCol sizeLg="6">
               <IonCard>
                 <IonCardHeader>
                   <IonSearchbar

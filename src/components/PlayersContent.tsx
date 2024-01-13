@@ -8,11 +8,13 @@ import {
   IonHeader,
   IonIcon,
   IonItem,
+  IonLabel,
   IonList,
   IonModal,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { Tag } from "antd";
 import { close } from "ionicons/icons";
 import { useState } from "react";
 import IonImgFallback from "./IonImgFallback";
@@ -54,6 +56,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
             return playerName.includes(searchTerm.toLowerCase());
           })
           .map((player: any) => {
+            console.log("playea", player);
             return (
               <VirtualScrollChild>
                 <IonItem
@@ -66,7 +69,14 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                       alt={`${player.firstName} ${player.lastName} Avatar`}
                     ></IonImgFallback>
                   </IonAvatar>
-                  {player.firstName} {player.lastName}
+                  <IonLabel>
+                    {player.firstName} {player.lastName}
+                  </IonLabel>
+                  <IonButtons>
+                    <Tag color={player.active ? "green" : "volcano"}>
+                      {player.active ? "Active" : "Inactive"}
+                    </Tag>
+                  </IonButtons>
                 </IonItem>
               </VirtualScrollChild>
             );
