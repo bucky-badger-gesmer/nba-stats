@@ -56,7 +56,6 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
             return playerName.includes(searchTerm.toLowerCase());
           })
           .map((player: any) => {
-            console.log("playea", player);
             return (
               <VirtualScrollChild>
                 <IonItem
