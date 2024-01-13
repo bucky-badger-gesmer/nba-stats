@@ -7,7 +7,6 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 import Menu from "./components/Menu";
-import Page from "./pages/Page";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -26,7 +25,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
-import { Players } from "./pages";
+import { Players, Stats, Teams } from "./pages";
 import "./theme/variables.css";
 
 setupIonicReact();
@@ -42,10 +41,10 @@ const App: React.FC = () => {
               <Players />
             </Route>
             <Route path="/teams">
-              <Page />
+              <Teams />
             </Route>
             <Route path="/stats">
-              <Page />
+              <Stats />
             </Route>
             <Route exact={true} path="/">
               <Redirect to="/players"></Redirect>
