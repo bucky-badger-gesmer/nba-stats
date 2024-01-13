@@ -12,7 +12,6 @@ import {
   IonRow,
   IonSearchbar,
   IonTitle,
-  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
@@ -53,11 +52,11 @@ const Players: React.FC = () => {
                           value={searchTerm}
                         ></IonSearchbar>
                       </IonCol>
-                      <IonCol size="auto" className="ion-align-self-center">
+                      {/* <IonCol size="auto" className="ion-align-self-center">
                         <IonToggle labelPlacement="stacked">
                           Include Inactive
                         </IonToggle>
-                      </IonCol>
+                      </IonCol> */}
                     </IonRow>
                   </IonGrid>
                 </IonCardHeader>
