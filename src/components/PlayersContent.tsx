@@ -1,16 +1,16 @@
 import { ApolloError } from "@apollo/client";
 import {
-  IonAvatar,
   IonButton,
   IonButtons,
   IonCard,
   IonCol,
   IonContent,
-  IonFab,
   IonGrid,
   IonHeader,
   IonIcon,
   IonItem,
+  IonItemDivider,
+  IonItemGroup,
   IonLabel,
   IonList,
   IonModal,
@@ -19,19 +19,18 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { Tag } from "antd";
 import { close } from "ionicons/icons";
 import { useState } from "react";
+import { groupPlayersByLastName } from "../utils/helpers";
 import IonImgFallback from "./IonImgFallback";
 import LoadingSpinner from "./LoadingSpinner";
-import VirtualScrollChild from "./VirtualScrollChild";
 
 interface PlayersContentProps {
   loading: boolean;
   error?: ApolloError;
   data?: any;
   searchTerm: string;
-  includeInactive: boolean;
+  historic: boolean;
 }
 
 const PlayersContent: React.FC<PlayersContentProps> = ({
@@ -39,7 +38,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
   error,
   data,
   searchTerm,
-  includeInactive,
+  historic,
 }: PlayersContentProps) => {
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -53,42 +52,41 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
     setIsOpen(true);
   };
 
+  const grouped = groupPlayersByLastName(
+    data.playerIndex
+      .filter((player: any) => {
+        if (historic) {
+          return player;
+        } else {
+          return player.active === true;
+        }
+      })
+      .filter((player: any) => {
+        const playerName =
+          `${player.firstName} ${player.lastName}`.toLowerCase();
+        return playerName.includes(searchTerm.toLowerCase());
+      })
+  );
+
   return (
     <>
       <IonList>
-        {data.playerIndex
-          .filter((player: any) => {
-            if (includeInactive) {
-              return player;
-            } else {
-              return player.active === true;
-            }
-          })
-          .filter((player: any) => {
-            const playerName =
-              `${player.firstName} ${player.lastName}`.toLowerCase();
-            return playerName.includes(searchTerm.toLowerCase());
-          })
-          .map((player: any, i: number) => {
-            return (
-              <VirtualScrollChild>
-                <IonItem key={i} onClick={() => handlePlayerClick(player)}>
-                  <IonAvatar aria-hidden="true" slot="start">
-                    <IonImgFallback
-                      src={`https://cdn.nba.com/headshots/nba/latest/260x190/${player.id}.png`}
-                      alt={`${player.firstName} ${player.lastName} Avatar`}
-                    ></IonImgFallback>
-                  </IonAvatar>
-                  <Tag color={player.active ? "green" : "volcano"}>
-                    {player.active ? "Active" : "Inactive"}
-                  </Tag>
-                  <IonLabel>
-                    {player.firstName} {player.lastName}
-                  </IonLabel>
-                </IonItem>
-              </VirtualScrollChild>
-            );
-          })}
+        {Object.keys(grouped).map((key) => {
+          return (
+            <IonItemGroup>
+              <IonItemDivider sticky={true}>{key}</IonItemDivider>
+              {grouped[key].map((player) => {
+                return (
+                  <IonItem onClick={() => handlePlayerClick(player)}>
+                    <IonLabel>
+                      {player.firstName} <strong>{player.lastName}</strong>
+                    </IonLabel>
+                  </IonItem>
+                );
+              })}
+            </IonItemGroup>
+          );
+        })}
       </IonList>
       <IonModal
         initialBreakpoint={1}
@@ -122,33 +120,13 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                         src={`https://cdn.nba.com/headshots/nba/latest/260x190/${selectedPlayer.id}.png`}
                         alt={`${selectedPlayer.firstName} ${selectedPlayer.lastName} Avatar`}
                       ></IonImgFallback>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-around",
-                          alignContent: "center",
-                          textAlign: "center",
-                        }}
+                      <IonButton
+                        expand="full"
+                        shape="round"
+                        className="ion-padding"
                       >
-                        <div>
-                          <IonText>
-                            <p>Points</p>
-                            <h3>{selectedPlayer.headlineStats.points}</h3>
-                          </IonText>
-                        </div>
-                        <div>
-                          <IonText>
-                            <p>Rebounds</p>
-                            <h3>{selectedPlayer.headlineStats.rebounds}</h3>
-                          </IonText>
-                        </div>
-                        <div>
-                          <IonText>
-                            <p>Assists</p>
-                            <h3>{selectedPlayer.headlineStats.assists}</h3>
-                          </IonText>
-                        </div>
-                      </div>
+                        Player Details
+                      </IonButton>
                       <IonList>
                         <IonItem>
                           <IonText slot="start">Name</IonText>
@@ -178,22 +156,20 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                           <IonText slot="start">Last Attended</IonText>
                           <IonText slot="end">{selectedPlayer.college}</IonText>
                         </IonItem>
+                        <IonItem>
+                          <IonText slot="start">Draft</IonText>
+                          <IonText slot="end">
+                            {selectedPlayer.draft.year === null
+                              ? "Undrafted"
+                              : `${selectedPlayer.draft.year} R${selectedPlayer.draft.round} Pick ${selectedPlayer.draft.pick}`}
+                          </IonText>
+                        </IonItem>
                       </IonList>
                     </IonCard>
                   </IonCol>
                 </IonRow>
               </IonGrid>
             </IonContent>
-            <IonFab
-              slot="fixed"
-              vertical="bottom"
-              horizontal="center"
-              style={{ width: "100%" }}
-            >
-              <IonButton expand="full" shape="round">
-                Player Details
-              </IonButton>
-            </IonFab>
           </>
         )}
       </IonModal>

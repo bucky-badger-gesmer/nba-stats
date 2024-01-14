@@ -85,7 +85,7 @@ const Players: React.FC = () => {
                     error={error}
                     data={data}
                     searchTerm={searchTerm}
-                    includeInactive={historic}
+                    historic={historic}
                   />
                 </IonCardContent>
               </IonCard>
