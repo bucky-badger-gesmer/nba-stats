@@ -22,7 +22,7 @@ import { GET_PLAYER_INDEX } from "../queries";
 
 const Players: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [includeInactive, setIncludeInactive] = useState(true);
+  const [historic, setHistoric] = useState(true);
   const { loading, error, data } = useQuery(GET_PLAYER_INDEX);
 
   const handleSearch = (event: CustomEvent) => {
@@ -30,7 +30,7 @@ const Players: React.FC = () => {
   };
 
   const handleToggleInactive = () => {
-    setIncludeInactive(!includeInactive);
+    setHistoric(!historic);
   };
 
   return (
@@ -50,8 +50,8 @@ const Players: React.FC = () => {
               <IonCard>
                 <IonCardHeader>
                   <IonGrid style={{ width: "100%" }}>
-                    <IonRow>
-                      <IonCol>
+                    <IonRow className="ion-justify-content-center">
+                      <IonCol size="9">
                         <IonSearchbar
                           animated={true}
                           placeholder="Search"
@@ -60,13 +60,21 @@ const Players: React.FC = () => {
                         ></IonSearchbar>
                       </IonCol>
                       <IonCol size="3">
-                        <IonToggle
-                          labelPlacement="stacked"
-                          checked={includeInactive}
-                          onIonChange={handleToggleInactive}
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignContent: "center",
+                          }}
                         >
-                          Inactive
-                        </IonToggle>
+                          <IonToggle
+                            labelPlacement="stacked"
+                            checked={historic}
+                            onIonChange={handleToggleInactive}
+                          >
+                            Historic
+                          </IonToggle>
+                        </div>
                       </IonCol>
                     </IonRow>
                   </IonGrid>
@@ -77,7 +85,7 @@ const Players: React.FC = () => {
                     error={error}
                     data={data}
                     searchTerm={searchTerm}
-                    includeInactive={includeInactive}
+                    includeInactive={historic}
                   />
                 </IonCardContent>
               </IonCard>
