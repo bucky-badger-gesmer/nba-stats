@@ -37,14 +37,13 @@ const Players: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle className="ion-margin ion-padding" slot="start">
-            Players
-          </IonTitle>
+          <IonTitle>Players</IonTitle>
           <IonToggle
             className="ion-margin ion-padding"
             slot="end"
             onIonChange={handleToggleInactive}
             labelPlacement="stacked"
+            checked={historic}
           >
             Historic
           </IonToggle>
