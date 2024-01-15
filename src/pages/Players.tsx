@@ -9,7 +9,6 @@ import {
   IonPage,
   IonRow,
   IonSearchbar,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
@@ -36,20 +35,12 @@ const Players: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>
-            <IonGrid style={{ width: "100%" }}>
-              <IonRow className="ion-justify-content-center ion-align-content-center">
-                <IonCol>
-                  <IonSearchbar
-                    animated={true}
-                    placeholder="Search Players"
-                    onIonInput={(e) => handleSearch(e)}
-                    value={searchTerm}
-                  ></IonSearchbar>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonTitle>
+          <IonSearchbar
+            animated={true}
+            placeholder="Search Players"
+            onIonInput={(e) => handleSearch(e)}
+            value={searchTerm}
+          ></IonSearchbar>
         </IonToolbar>
       </IonHeader>
       <IonContent>
