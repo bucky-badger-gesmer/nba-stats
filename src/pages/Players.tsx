@@ -10,7 +10,6 @@ import {
   IonRow,
   IonSearchbar,
   IonTitle,
-  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
@@ -38,15 +37,6 @@ const Players: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle>Players</IonTitle>
-          <IonToggle
-            className="ion-margin ion-padding"
-            slot="end"
-            onIonChange={handleToggleInactive}
-            labelPlacement="stacked"
-            checked={historic}
-          >
-            Historic
-          </IonToggle>
         </IonToolbar>
         <IonToolbar>
           <IonSearchbar

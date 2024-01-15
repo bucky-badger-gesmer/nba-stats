@@ -3,6 +3,7 @@ import {
   IonButton,
   IonButtons,
   IonCard,
+  IonChip,
   IonCol,
   IonContent,
   IonGrid,
@@ -107,6 +108,9 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                     <IonLabel>
                       {player.firstName} <strong>{player.lastName}</strong>
                     </IonLabel>
+                    <IonChip color={player.active ? "success" : "warning"}>
+                      {player.active ? "Active" : "Inactive"}
+                    </IonChip>
                   </IonItem>
                 );
               })}
