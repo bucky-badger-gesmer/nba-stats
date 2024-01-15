@@ -52,6 +52,29 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
     setIsOpen(true);
   };
 
+  const renderDraftInfo = () => {
+    if (selectedPlayer.draft.year === null) {
+      return "Undrafted";
+    } else {
+      if (
+        selectedPlayer.draft.round === null ||
+        selectedPlayer.draft.year === null
+      ) {
+        return selectedPlayer.draft.year;
+      } else {
+        return `${selectedPlayer.draft.year} R${selectedPlayer.draft.round} Pick ${selectedPlayer.draft.pick}`;
+      }
+    }
+  };
+
+  const formatHeight = () => {
+    const parts = selectedPlayer.height.split("-");
+
+    const feet = parseInt(parts[0], 10);
+    const inches = parseInt(parts[1], 10);
+    return <>{`${feet}' ${inches}"`}</>;
+  };
+
   const grouped = groupPlayersByLastName(
     data.playerIndex
       .filter((player: any) => {
@@ -142,11 +165,13 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                         </IonItem>
                         <IonItem>
                           <IonText slot="start">Height</IonText>
-                          <IonText slot="end">{selectedPlayer.height}</IonText>
+                          <IonText slot="end">{formatHeight()}</IonText>
                         </IonItem>
                         <IonItem>
                           <IonText slot="start">Weight</IonText>
-                          <IonText slot="end">{selectedPlayer.weight}</IonText>
+                          <IonText slot="end">
+                            {selectedPlayer.weight} lbs
+                          </IonText>
                         </IonItem>
                         <IonItem>
                           <IonText slot="start">Country</IonText>
@@ -158,11 +183,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                         </IonItem>
                         <IonItem>
                           <IonText slot="start">Draft</IonText>
-                          <IonText slot="end">
-                            {selectedPlayer.draft.year === null
-                              ? "Undrafted"
-                              : `${selectedPlayer.draft.year} R${selectedPlayer.draft.round} Pick ${selectedPlayer.draft.pick}`}
-                          </IonText>
+                          <IonText slot="end">{renderDraftInfo()}</IonText>
                         </IonItem>
                       </IonList>
                     </IonCard>
