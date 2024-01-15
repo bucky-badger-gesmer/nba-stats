@@ -36,6 +36,7 @@ const Players: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
           <IonSearchbar
+            className="ion-justify-self-center ion-align-self-center"
             animated={true}
             placeholder="Search Players"
             onIonInput={(e) => handleSearch(e)}
