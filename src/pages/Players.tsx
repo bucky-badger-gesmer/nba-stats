@@ -39,7 +39,7 @@ const Players: React.FC = () => {
           </IonButtons>
           <IonTitle>
             <IonGrid style={{ width: "100%" }}>
-              <IonRow className="ion-justify-content-center">
+              <IonRow className="ion-justify-content-center ion-align-content-center">
                 <IonCol size="9">
                   <IonSearchbar
                     animated={true}
