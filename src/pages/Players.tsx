@@ -10,7 +10,6 @@ import {
   IonRow,
   IonSearchbar,
   IonTitle,
-  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { useState } from "react";
@@ -40,30 +39,13 @@ const Players: React.FC = () => {
           <IonTitle>
             <IonGrid style={{ width: "100%" }}>
               <IonRow className="ion-justify-content-center ion-align-content-center">
-                <IonCol size="9">
+                <IonCol>
                   <IonSearchbar
                     animated={true}
                     placeholder="Search Players"
                     onIonInput={(e) => handleSearch(e)}
                     value={searchTerm}
                   ></IonSearchbar>
-                </IonCol>
-                <IonCol size="3">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignContent: "center",
-                    }}
-                  >
-                    <IonToggle
-                      labelPlacement="stacked"
-                      checked={historic}
-                      onIonChange={handleToggleInactive}
-                    >
-                      Historic
-                    </IonToggle>
-                  </div>
                 </IonCol>
               </IonRow>
             </IonGrid>
