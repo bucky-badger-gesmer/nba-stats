@@ -1,9 +1,6 @@
 import { useQuery } from "@apollo/client";
 import {
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
   IonCol,
   IonContent,
   IonGrid,
@@ -40,55 +37,50 @@ const Players: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Players</IonTitle>
+          <IonTitle>
+            <IonGrid style={{ width: "100%" }}>
+              <IonRow className="ion-justify-content-center">
+                <IonCol size="9">
+                  <IonSearchbar
+                    animated={true}
+                    placeholder="Search Players"
+                    onIonInput={(e) => handleSearch(e)}
+                    value={searchTerm}
+                  ></IonSearchbar>
+                </IonCol>
+                <IonCol size="3">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignContent: "center",
+                    }}
+                  >
+                    <IonToggle
+                      labelPlacement="stacked"
+                      checked={historic}
+                      onIonChange={handleToggleInactive}
+                    >
+                      Historic
+                    </IonToggle>
+                  </div>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonGrid>
           <IonRow className="ion-justify-content-center">
             <IonCol sizeLg="6">
-              <IonCard>
-                <IonCardHeader>
-                  <IonGrid style={{ width: "100%" }}>
-                    <IonRow className="ion-justify-content-center">
-                      <IonCol size="9">
-                        <IonSearchbar
-                          animated={true}
-                          placeholder="Search"
-                          onIonInput={(e) => handleSearch(e)}
-                          value={searchTerm}
-                        ></IonSearchbar>
-                      </IonCol>
-                      <IonCol size="3">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignContent: "center",
-                          }}
-                        >
-                          <IonToggle
-                            labelPlacement="stacked"
-                            checked={historic}
-                            onIonChange={handleToggleInactive}
-                          >
-                            Historic
-                          </IonToggle>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-                  </IonGrid>
-                </IonCardHeader>
-                <IonCardContent>
-                  <PlayersContent
-                    loading={loading}
-                    error={error}
-                    data={data}
-                    searchTerm={searchTerm}
-                    historic={historic}
-                  />
-                </IonCardContent>
-              </IonCard>
+              <PlayersContent
+                loading={loading}
+                error={error}
+                data={data}
+                searchTerm={searchTerm}
+                historic={historic}
+              />
             </IonCol>
           </IonRow>
         </IonGrid>

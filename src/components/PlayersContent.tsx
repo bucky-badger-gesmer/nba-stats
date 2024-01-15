@@ -96,11 +96,14 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
       <IonList>
         {Object.keys(grouped).map((key) => {
           return (
-            <IonItemGroup>
+            <IonItemGroup key={key}>
               <IonItemDivider sticky={true}>{key}</IonItemDivider>
               {grouped[key].map((player) => {
                 return (
-                  <IonItem onClick={() => handlePlayerClick(player)}>
+                  <IonItem
+                    key={player.id}
+                    onClick={() => handlePlayerClick(player)}
+                  >
                     <IonLabel>
                       {player.firstName} <strong>{player.lastName}</strong>
                     </IonLabel>
