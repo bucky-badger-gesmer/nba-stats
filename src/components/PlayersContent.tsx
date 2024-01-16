@@ -76,6 +76,13 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
     return <>{`${feet}' ${inches}"`}</>;
   };
 
+  const formatLastCareerYear = () => {
+    const toYear = selectedPlayer.career.toYear;
+    const toYearFormatted = parseInt(toYear);
+    const yearAfterToYear = toYearFormatted + 1;
+    return yearAfterToYear;
+  };
+
   const grouped = groupPlayersByLastName(
     data.playerIndex
       .filter((player: any) => {
@@ -198,7 +205,7 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                             {selectedPlayer.career.fromYear} -{" "}
                             {selectedPlayer.active
                               ? "Present"
-                              : selectedPlayer.career.toYear}
+                              : formatLastCareerYear()}
                           </IonText>
                         </IonItem>
                       </IonList>
