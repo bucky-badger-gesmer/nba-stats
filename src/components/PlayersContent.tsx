@@ -192,6 +192,15 @@ const PlayersContent: React.FC<PlayersContentProps> = ({
                           <IonText slot="start">Draft</IonText>
                           <IonText slot="end">{renderDraftInfo()}</IonText>
                         </IonItem>
+                        <IonItem>
+                          <IonText slot="start">Career</IonText>
+                          <IonText slot="end">
+                            {selectedPlayer.career.fromYear} -{" "}
+                            {selectedPlayer.active
+                              ? "Present"
+                              : selectedPlayer.career.toYear}
+                          </IonText>
+                        </IonItem>
                       </IonList>
                     </IonCard>
                   </IonCol>
